@@ -7,17 +7,14 @@ A hyper server that implements CORS and Auth0 out-of-box. This is meant to be a 
 
 # How to Use
 1. Download repository as a zip file (do not fork)
-2. Create the file `.env` and place the following content keys in it: `PORT`, `AUTH0_DOMAIN`.
-3. Edit `cors.rs` to add any additional hosts your app will run on. I usually return your production host for the default result.
-4. Run `cargo run`
-5. The server should start. A request like the following will return the current user's ID:
-```
-GET /
-Authorization: Bearer {accessToken}
-```
-6. Start building functions! You can build complex routing and "middleware" in the `route` function in `main.rs`.
+2. Edit the project name and author in `Cargo.toml`
+3. Create the file `.env` and place the following content keys in it: `PORT`, `AUTH0_DOMAIN`.
+4. Edit `cors.rs` to add any additional hosts your app will run on. I usually return your production host for the default result.
+5. Run `cargo run`
+6. The server should start. A request like the following will return the current user's ID:
+7. Start building functions! You can build complex routing and "middleware" in the `route` function in `main.rs`.
 
-# Some Sample Routes:
+# Built-in functions:
 
 ```
 /     -> returns "OK"
