@@ -20,7 +20,7 @@ pub(crate) fn cors_host(req: &Request<Body>) -> &str {
     }
 }
 
-pub(crate) fn inject_headers(req: &RequestContext<Request<Body>>, res: &mut Response<Body>) {
+pub(crate) fn inject_headers(req: &RequestContext, res: &mut Response<Body>) {
     res.headers_mut().insert(
         "Access-Control-Allow-Origin",
         HeaderValue::from_str(req.cors_allowed_origin).unwrap(),

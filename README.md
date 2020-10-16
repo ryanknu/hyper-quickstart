@@ -16,3 +16,11 @@ GET /
 Authorization: Bearer {accessToken}
 ```
 6. Start building functions! You can build complex routing and "middleware" in the `route` function in `main.rs`.
+
+# Some Sample Routes:
+
+```
+/     -> returns "OK"
+/user -> returns your auth0 user ID
+/path -> returns the requested path
+```

@@ -25,14 +25,16 @@ pub async fn start() {
     let server = Server::bind(&addr);
     let server = server.serve(make_service_fn(|_connection| async {
         Ok::<_, Infallible>(service_fn(|req: Request<Body>| async move {
-            let req = route(&req).await;
-            let mut res = match req.path {
+            let context = route(&req).await;
+            let mut res = match context.path {
                 "<options>" => cors::ok(),
-                "/" => Response::new(Body::from(req.user_id.clone())),
+                "/" => Response::new(Body::from("OK")),
+                "/path" => Response::new(Body::from(String::from(req.uri().path()))),
+                "/user" => Response::new(Body::from(context.user_id.clone())),
                 "<forbidden>" => http::forbidden(),
                 _ => http::not_found(),
             };
-            cors::inject_headers(&req, &mut res);
+            cors::inject_headers(&context, &mut res);
             Ok::<_, Infallible>(res)
         }))
     }));
@@ -65,7 +67,7 @@ fn check_env() {
 /// ```
 /// if chrono::Utc::now().second() == 30 { context.midMinute = true }
 /// ```
-async fn route<'a>(req: &'a Request<Body>) -> RequestContext<'a, Request<Body>> {
+async fn route<'a>(req: &'a Request<Body>) -> RequestContext<'a> {
     let is_options = req.method().eq(&Method::OPTIONS);
     let user_id = if !is_options {
         auth::verify(req).await
@@ -82,15 +84,15 @@ async fn route<'a>(req: &'a Request<Body>) -> RequestContext<'a, Request<Body>> 
         } else {
             req.uri().path()
         },
-        request: req,
+        // request: req.clone(),
         user_id,
     }
 }
 
-struct RequestContext<'a, T> {
+struct RequestContext<'a> {
     cors_allowed_origin: &'a str,
     path: &'a str,
-    request: &'a T,
+    // request: &'a Request<Body>,
     user_id: String,
 }
 
