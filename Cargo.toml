@@ -1,0 +1,21 @@
+[package]
+name = "hyper-quickstart"
+version = "0.1.0"
+authors = ["Ryan Knuesel <ryan.knuesel@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "*"
+chrono = { version = "*", features = ["serde"] }
+diesel = { version = "*", features = ["postgres", "chrono"] }
+diesel_migrations = "*"
+dotenv = "*"
+hyper = "*"
+lazy_static = "*"
+reqwest = "*"
+serde = { version = "*", features = ["derive"] }
+serde_json = "*"
+serde_urlencoded = "*"
+tokio = { version = "*", features = ["full"] }
