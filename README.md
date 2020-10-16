@@ -11,7 +11,7 @@ A hyper server that implements CORS and Auth0 out-of-box. This is meant to be a 
 3. Create the file `.env` and place the following content keys in it: `PORT`, `AUTH0_DOMAIN`.
 4. Edit `cors.rs` to add any additional hosts your app will run on. I usually return your production host for the default result.
 5. Run `cargo run`
-6. The server should start. A request like the following will return the current user's ID:
+6. The server should start.
 7. Start building functions! You can build complex routing and "middleware" in the `route` function in `main.rs`.
 
 # Built-in functions:
